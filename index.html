@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>JSON Web Token Decode</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.1/codemirror.min.css" integrity="sha512-xIf9AdJauwKIVtrVRZ0i4nHP61Ogx9fSRAkCLecmE2dL/U8ioWpDvFCAy4dcfecN72HHB9+7FfQj3aiO68aaaw==" crossorigin="anonymous" />
+    <style>
+      .border-1 {
+        padding: 5px;
+        margin-bottom: 10px;
+        border-width: 3px;
+        border-radius: 5px;
+        border: solid #f0f0f0;
+      }
+      .decode-section {
+        min-height: 3rem;
+        padding: .375rem;
+        border: 1px solid #ced4da;
+        border-radius: .25rem;
+      }
+      .decode-section.header {
+        border-color: #fb015b;
+      }
+      .decode-section.payload {
+        min-height: 8rem;
+        border-color: #d63aff;
+      }
+      .decode-section.signature {
+        border-color: #00b9f1;
+      }
+      label {
+        font-weight: bold;
+      }
+      label.header {
+        color: #fb015b;
+      }
+      label.payload {
+        color: #d63aff;
+      }
+      label.signature {
+        color: #00b9f1;
+      }
+    </style>
+  </head>
+  <body>
+    <main role="main" class="container">
+      <div>
+        <h1>JWT Decoder</h1>
+        <p class="lead">Use this page to decode JWT tokens.</p>
+        <div class="alert alert-warning" role="alert">
+          <b>Note:</b> JWTs are secret credentials that grant access to resources. They shouldn&apos;t be shared so be careful where you paste them. All operations on this page remain in the browser (client-side) and are never shared or saved.
+        </div>
+        <form>
+          <div class="border-1">
+            <h2>Encoded</h2>
+            <div class="form-group">
+              <textarea class="form-control" id="encodedJwt" rows="3" placeholder="Paste an encoded JWT here to decode it." onkeyup="decode($(this).val())"></textarea>
+            </div>
+            <div id="error" class="alert alert-danger" role="alert" style="display: none">
+              The provided token is invalid.
+            </div>
+          </div>
+          <div class="border-1">
+            <h2>Decoded</h2>
+            <div class="form-group" id="decodedJwtHeader">
+              <label for="header">Header (Algorithm &amp; Token Type)</label>
+              <pre class="decode-section header" id="header">
+              </pre>
+            </div>
+            <div class="form-group" id="decodedJwtPayload">
+              <label for="payload">Payload (Token Claims)</label>
+              <pre class="decode-section payload" id="payload">
+              </pre>
+            </div>
+            <div class="form-group" id="decodedJwtSignature">
+              <label for="signature">Signature (Verification)</label>
+              <pre class="decode-section signature" id="signature">
+              </pre>
+            </div>
+          </div>
+        </form>
+      </div>
+
+    </main><!-- /.container -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    <script>
+      function decode(myToken) {
+        var token = myToken.split(".");
+        if (token.length != 3) {
+          clearDecoded();
+          if (myToken !== "") {
+            $("#error").show();
+          }
+          else {
+            $("#error").hide();
+          }
+          return;
+        }
+        if (updateDecoded(token)) {
+          $("#error").hide();
+        }
+        else {
+          $("#error").show();
+        }
+      }
+      function updateDecoded(token) {
+        var success = true;
+        success &= update("#header", token[0]);
+        success &= update("#payload", token[1]);
+        $("#signature").html(token[2]);
+        return success;
+      }
+      function update(id, value) {
+        try {
+          var obj = JSON.parse(atob(value));
+          $(id).html(JSON.stringify(obj, null, 4));
+          return true;
+        }
+        catch (err) {
+          $(id).html("Cannot parse value from token");
+          return false;
+        }
+      }
+      function clearDecoded() {
+        $("#header").html("");
+        $("#payload").html("");
+        $("#signature").html("");
+      }
+      window.onload = function() {
+        document.getElementById("encodedJwt").focus();
+      };
+    </script>
+  </body>
+</html>
