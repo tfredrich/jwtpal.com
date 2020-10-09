@@ -1,0 +1,35 @@
+.border-1 {
+  padding: 5px;
+  margin-bottom: 10px;
+  border-width: 3px;
+  border-radius: 5px;
+  border: solid #f0f0f0;
+}
+.decode-section {
+  min-height: 6rem;
+  padding: .375rem;
+  border: 1px solid #ced4da;
+  border-radius: .25rem;
+}
+.decode-section.header {
+  border-color: #fb015b;
+}
+.decode-section.payload {
+  min-height: 15rem;
+  border-color: #d63aff;
+}
+.decode-section.signature {
+  border-color: #00b9f1;
+}
+label {
+  font-weight: bold;
+}
+label.header {
+  color: #fb015b;
+}
+label.payload {
+  color: #d63aff;
+}
+label.signature {
+  color: #00b9f1;
+}
