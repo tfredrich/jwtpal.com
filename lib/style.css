@@ -18,6 +18,12 @@
   min-height: 15rem;
   border-color: #d63aff;
 }
+.token.operator {
+  background-color: inherit;
+}
+.col.align-right {
+  text-align: right;
+}
 label {
   font-weight: bold;
 }
