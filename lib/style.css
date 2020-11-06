@@ -18,6 +18,9 @@
   min-height: 15rem;
   border-color: #d63aff;
 }
+.decode-section.summary {
+  border-color: #0c0c0c;
+}
 .token.operator {
   background-color: inherit;
 }

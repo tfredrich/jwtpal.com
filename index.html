@@ -19,7 +19,7 @@
           <b>Note:</b> JWTs are secret credentials for websites and APIs. As they grant access to protected resources they shouldn&apos;t be shared. All operations on this page remain in the browser (client-side) and are never shared or saved.
         </div>
         <form>
-          <div class="border-1">
+          <div>
             <div class="row">
               <div class="col"><h2>Encoded</h2></div>
               <div id="link" class="col align-right" style="display:none"><a id="share" href="">Shareable Link</a></div>
@@ -31,7 +31,7 @@
               The provided token is invalid (malformed JSON Web Token).
             </div>
           </div>
-          <div class="border-1">
+          <div>
             <h2>Decoded</h2>
             <div class="form-group" id="decodedJwtHeader">
               <label for="header-div">Header (Algorithm &amp; Key ID)</label>
@@ -40,6 +40,10 @@
             <div class="form-group" id="decodedJwtPayload">
               <label for="payload-div">Payload (Token Claims)</label>
               <pre class="decode-section payload" id="payload-div"><code id="payload" class="language-json"></code></pre>
+            </div>
+            <div class="form-group" id="payloadSummary">
+              <label for="summary-div">Summary (Payload Analysis)</label>
+              <pre class="decode-section summary" id="summary-div"><code id="summary" class="language-json"></code></pre>
             </div>
           </div>
         </form>
