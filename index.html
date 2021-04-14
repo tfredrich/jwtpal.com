@@ -1,8 +1,8 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <title>JWT Token Decoder</title>
-    <meta name="description" content="Parse, debug and decode JSON Web Tokens (JWT) to verify and see what's inside.">
+    <title>JWT Token Decoder - jwtpal.com</title>
+    <meta name="description" content="Parse, debug and decode JSON Web Tokens (JWT) to verify, validate and see what's inside.">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
@@ -14,14 +14,14 @@
     <main role="main" class="container">
       <div>
         <h1>JWT Decoder</h1>
-        <p class="lead">Use this page to debug and decode JWT tokens.
+        <p class="lead">Developer tools to debug and decode JSON Web Tokens. Enter an encoded JWT below to have it decoded to show the claims it contains as well as other details about the JWT validity, expiration and recommended claims for its usage.</p>
         <div class="alert alert-warning" role="alert">
           <b>Note:</b> JWTs are secret credentials for websites and APIs. As they grant access to protected resources they shouldn&apos;t be shared. All operations on this page remain in the browser (client-side) and are never shared or saved.
         </div>
         <form>
           <div>
             <div class="row">
-              <div class="col"><h2>Encoded</h2></div>
+              <div class="col"><h2>Encoded <small class="text-muted">(Paste a Token Here)</small></h2></div>
               <div id="link" class="col align-right" style="display:none"><a id="share" href="">Shareable Link</a></div>
             </div>
             <div class="form-group">
@@ -32,7 +32,7 @@
             </div>
           </div>
           <div>
-            <h2>Decoded</h2>
+            <h2>Decoded <small class="text-muted">(Viewable Token Details)</small></h2>
             <div class="form-group" id="decodedJwtHeader">
               <label for="header-div">Header (Algorithm &amp; Key ID)</label>
               <pre class="decode-section header" id="header-div"><code id="header" class="language-json"></code></pre>
