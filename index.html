@@ -21,11 +21,15 @@
         <form>
           <div>
             <div class="row">
-              <div class="col"><h2>Encoded <small class="text-muted">(Paste a Token Here)</small></h2></div>
+              <div class="col"><h2>Encoded <small class="text-muted">(Paste a Token Below)</small></h2></div>
               <div id="link" class="col align-right" style="display:none"><a id="share" href="">Shareable Link</a></div>
             </div>
-            <div class="form-group">
-              <textarea class="form-control" id="encodedJwt" rows="3" placeholder="Paste an encoded JWT here to decode it." onkeyup="process($(this).val())"></textarea>
+            <div class="row form-group">
+              <div class="col"><textarea class="form-control" id="encodedJwt" rows="3" placeholder="Paste an encoded JWT here to decode it or click the 'sample' button to see an example." onkeyup="process($(this).val())"></textarea></div>
+              <div class="col-1">
+                <button class="btn btn-outline-secondary btn-sm btn-block" type="button" onclick="sampleJwt()">Sample</button>
+                <button class="btn btn-outline-secondary btn-sm btn-block" type="button" onclick="resetJwt()">Clear</button>
+              </div>
             </div>
             <div id="error" class="alert alert-danger" role="alert" style="display: none">
               The provided token is invalid (malformed JSON Web Token).
@@ -34,15 +38,15 @@
           <div>
             <h2>Decoded <small class="text-muted">(Viewable Token Details)</small></h2>
             <div class="form-group" id="decodedJwtHeader">
-              <label for="header-div">Header (Algorithm &amp; Key ID)</label>
+              <label for="header">Header (Algorithm &amp; Key ID)</label>
               <pre class="decode-section header" id="header-div"><code id="header" class="language-json"></code></pre>
             </div>
             <div class="form-group" id="decodedJwtPayload">
-              <label for="payload-div">Payload (Token Claims)</label>
+              <label for="payload">Payload (Token Claims)</label>
               <pre class="decode-section payload" id="payload-div"><code id="payload" class="language-json"></code></pre>
             </div>
             <div class="form-group" id="payloadSummary">
-              <label for="summary-div">Summary (Payload Analysis)</label>
+              <label for="summary">Summary (Payload Analysis)</label>
               <pre class="decode-section summary" id="summary-div"><code id="summary" class="language-json"></code></pre>
             </div>
           </div>
