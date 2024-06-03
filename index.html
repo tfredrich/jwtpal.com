@@ -29,8 +29,8 @@
                 <textarea id="encodedJwt" class="form-control" rows="3" placeholder="Paste an encoded JWT here to decode it or click the 'sample' button to see an example." onkeyup="process($(this).val())"></textarea>
               </div>
               <div class="col-12 col-md-1 mt-2 mt-md-0">
-                <button id="btn-sample" class="btn btn-outline-secondary btn-sm btn-block" type="button">Sample</button>
-                <button id="btn-clear" class="btn btn-outline-secondary btn-sm btn-block" type="button">Clear</button>
+                <button id="btn-sample" class="btn btn-outline-secondary btn-sm btn-block" type="button" data-toggle="tooltip" title="Decode a sample JWT">Sample</button>
+                <button id="btn-clear" class="btn btn-outline-secondary btn-sm btn-block" type="button" data-toggle="tooltip" title="Clear the Encoded textarea">Clear</button>
               </div>
             </div>
             <div id="error" class="alert alert-danger" role="alert" style="display: none">
