@@ -43,3 +43,11 @@ small {
 #link {
   display: none;
 }
+.header {
+  display: flex;
+  align-items: center;
+}
+.header .logo {
+  height: 2.5em; /* This will make the logo the same height as the text in the h1 */
+  margin-right: 5px; /* Optional: add some space between the logo and the text */
+}
