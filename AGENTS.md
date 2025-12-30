@@ -5,7 +5,7 @@
 - `lib/token.js` hosts all decoding logic, DOM wiring, and helper routines such as `decodeBase64Url` and `requiredClaims`.
 - `lib/style.css` defines theming and layout; keep shared variables and breakpoint rules near the top for quick tuning.
 - `img/` holds logos and icons referenced by `index.html`; favicon variations live at the repo root for host compatibility.
-- `blob.jwt` is a ready-made token payload; use it for regression checks before shipping changes.
+- `blob.jwt` is a ready-made [large] token payload; use it for regression checks before shipping changes.
 
 ## Build, Test, and Development Commands
 - `python3 -m http.server 8080` (from repo root) serves the static site locally so callbacks and query-string parsing work reliably.
