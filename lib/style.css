@@ -21,18 +21,6 @@
 .decode-section.summary {
   border-color: #0c0c0c;
 }
-.sdjwt-status-valid {
-  color: #28a745;
-}
-.sdjwt-status-unused {
-  color: #6c757d;
-}
-.sdjwt-status-missing {
-  color: #ffc107;
-}
-.sdjwt-status-invalid {
-  color: #dc3545;
-}
 .token.operator {
   background-color: inherit;
 }
