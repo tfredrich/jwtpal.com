@@ -58,6 +58,12 @@ small {
 .sample-box .btn + .btn {
   margin-top: .25rem;
 }
+.encoded-col {
+  display: flex;
+}
+.encoded-col #encodedJwt {
+  flex: 1 1 auto;
+}
 #link {
   display: none;
 }
