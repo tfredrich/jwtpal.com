@@ -34,11 +34,15 @@
               <div id="link" class="col align-right"><a id="share" href="">Shareable Link</a></div>
             </div>
             <div class="row form-group">
-              <div class="col-12 col-md-11">
-                <textarea id="encodedJwt" class="form-control" rows="3" placeholder="Paste an encoded JWT here to decode it or click the 'sample' button to see an example."></textarea>
+              <div class="col-12 col-md-10">
+                <textarea id="encodedJwt" class="form-control" rows="3" placeholder="Paste an encoded JWT here to decode it or click a sample button."></textarea>
               </div>
-              <div class="col-12 col-md-1 mt-2 mt-md-0">
-                <button id="btn-sample" class="btn btn-outline-secondary btn-sm btn-block" type="button" data-toggle="tooltip" title="Decode a sample JWT">Sample</button>
+              <div class="col-12 col-md-2 mt-2 mt-md-0">
+                <fieldset class="sample-box mb-2">
+                  <legend>Samples</legend>
+                  <button id="btn-sample-jwt" class="btn btn-outline-secondary btn-sm btn-block" type="button" data-toggle="tooltip" title="Decode a sample JWT">JWT</button>
+                  <button id="btn-sample-sdjwt" class="btn btn-outline-secondary btn-sm btn-block" type="button" data-toggle="tooltip" title="Decode a sample SD-JWT">SD-JWT</button>
+                </fieldset>
                 <button id="btn-clear" class="btn btn-outline-secondary btn-sm btn-block" type="button" data-toggle="tooltip" title="Clear the Encoded textarea">Clear</button>
               </div>
             </div>
