@@ -70,8 +70,16 @@ small {
 .header {
   display: flex;
   align-items: center;
+  justify-content: space-between;
 }
 .header .logo {
   height: 2.5em; /* This will make the logo the same height as the text in the h1 */
   margin-right: 5px; /* Optional: add some space between the logo and the text */
+}
+.header-brand {
+  display: flex;
+  align-items: center;
+}
+.header-nav a {
+  font-weight: bold;
 }
