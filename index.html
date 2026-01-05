@@ -60,6 +60,52 @@
               <label for="summary">Summary (Payload Analysis)</label>
               <pre id="summary-div" class="decode-section summary"><code id="summary" class="language-json"></code></pre>
             </div>
+            <div id="sdjwtSection" style="display: none">
+              <h3>SD-JWT Details</h3>
+              <div id="sdjwtBadges" class="mb-2">
+                <span id="badge-sd" class="badge badge-info mr-1 d-none" data-toggle="tooltip" title="Payload contains _sd digests for selectively disclosable claims.">_sd</span>
+                <span id="badge-sd-alg" class="badge badge-info mr-1 d-none" data-toggle="tooltip" title="Payload specifies the digest algorithm for disclosures.">_sd_alg</span>
+                <span id="badge-cnf" class="badge badge-info mr-1 d-none" data-toggle="tooltip" title="Payload includes confirmation (cnf) for key binding.">cnf</span>
+                <span id="badge-kb-jwt" class="badge badge-info mr-1 d-none" data-toggle="tooltip" title="SD-JWT includes a key binding JWT segment.">kb+jwt</span>
+              </div>
+              <div id="sdjwtErrors" class="alert alert-warning" role="alert" style="display: none"></div>
+              <div class="form-group" id="sdjwtDisclosures">
+                <label for="disclosureRows">Disclosures</label>
+                <div class="table-responsive">
+                  <table class="table table-sm table-bordered">
+                    <thead class="thead-light">
+                      <tr>
+                        <th scope="col">Reveal</th>
+                        <th scope="col">Claim</th>
+                        <th scope="col">Status</th>
+                      </tr>
+                    </thead>
+                    <tbody id="disclosureRows"></tbody>
+                  </table>
+                </div>
+                <div id="disclosureSummary" class="text-muted small"></div>
+              </div>
+              <div class="form-group" id="sdjwtReconstructed">
+                <div class="d-flex justify-content-between align-items-center">
+                  <label for="reconstructed">Reconstructed Payload</label>
+                  <div>
+                    <button id="copy-reconstructed" type="button" class="btn btn-outline-secondary btn-sm">Copy reconstructed</button>
+                    <button id="copy-redacted" type="button" class="btn btn-outline-secondary btn-sm">Copy redacted</button>
+                  </div>
+                </div>
+                <div class="form-check mb-2">
+                  <input id="toggle-undisclosed" class="form-check-input" type="checkbox" checked>
+                  <label class="form-check-label" for="toggle-undisclosed">Show undisclosed placeholders</label>
+                </div>
+                <pre id="reconstructed-div" class="decode-section payload"><code id="reconstructed" class="language-json"></code></pre>
+              </div>
+              <div class="form-group" id="sdjwtKeyBinding" style="display: none">
+                <label for="kbheader">Key Binding JWT Header</label>
+                <pre id="kbheader-div" class="decode-section header"><code id="kbheader" class="language-json"></code></pre>
+                <label for="kbpayload">Key Binding JWT Payload</label>
+                <pre id="kbpayload-div" class="decode-section payload"><code id="kbpayload" class="language-json"></code></pre>
+              </div>
+            </div>
           </div>
         </form>
       </div>
