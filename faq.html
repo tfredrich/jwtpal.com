@@ -26,43 +26,43 @@
         </div>
       </div>
       <p class="lead">Quick answers about JWT and SD-JWT decoding, privacy, OAuth2/OIDC claims, and selective disclosures.</p>
-      <section class="mb-4">
+      <section class="mb-4 faq-section">
         <h2>What is a JWT?</h2>
         <p>A JSON Web Token (JWT) is a compact token format that includes a header, payload (claims), and signature for transport between systems.</p>
       </section>
-      <section class="mb-4">
+      <section class="mb-4 faq-section">
         <h2>What is an SD-JWT?</h2>
         <p>SD-JWT (Selective Disclosure JWT) lets the issuer hide some claims and reveal only selected disclosures to a verifier.</p>
       </section>
-      <section class="mb-4">
+      <section class="mb-4 faq-section">
         <h2>Does this site upload or store my tokens?</h2>
         <p>No. All decoding happens in the browser. Tokens never leave your device and are not logged or saved.</p>
       </section>
-      <section class="mb-4">
+      <section class="mb-4 faq-section">
         <h2>Does decoding validate a signature?</h2>
         <p>Decoding parses the token structure and payload. It does not verify signatures unless you validate against known keys in your own system.</p>
       </section>
-      <section class="mb-4">
+      <section class="mb-4 faq-section">
         <h2>How do I check token expiration?</h2>
         <p>Look for the <code>exp</code> claim. The decoder highlights expiration and recommended claims in the summary section.</p>
       </section>
-      <section class="mb-4">
+      <section class="mb-4 faq-section">
         <h2>Which OAuth2 and OIDC claims should I review?</h2>
         <p>Common checks include <code>iss</code> (issuer), <code>aud</code> (audience), <code>sub</code> (subject), and <code>exp</code> (expiration).</p>
       </section>
-      <section class="mb-4">
+      <section class="mb-4 faq-section">
         <h2>Why do I see disclosures for SD-JWT?</h2>
         <p>Disclosures reveal selectively shared claims. The decoder reconstructs the disclosed payload so you can see what was revealed.</p>
       </section>
-      <section class="mb-4">
+      <section class="mb-4 faq-section">
         <h2>What is a key binding JWT?</h2>
         <p>A key binding JWT links SD-JWT disclosures to a holder key and can appear as an additional JWT segment.</p>
       </section>
-      <section class="mb-4">
+      <section class="mb-4 faq-section">
         <h2>What if my token is malformed?</h2>
         <p>If the token is missing segments or has invalid Base64URL/JSON, the decoder will show an error banner.</p>
       </section>
-      <section class="mb-4">
+      <section class="mb-4 faq-section">
         <h2>Can I link directly to a decoded token?</h2>
         <p>Yes. Use the shareable link feature to include <code>?jwt=</code> or <code>?token=</code> in the URL.</p>
       </section>

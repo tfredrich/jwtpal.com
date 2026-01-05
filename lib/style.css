@@ -83,3 +83,17 @@ small {
 .header-nav a {
   font-weight: bold;
 }
+.faq-section {
+  padding: 1rem;
+  padding-bottom: .5rem;
+}
+.faq-section:nth-of-type(odd) {
+  background-color: #f8f9fb;
+}
+.faq-section:nth-of-type(even) {
+  background-color: #eef2f6;
+}
+.faq-section h2 {
+  font-size: 1.25rem;
+  margin-bottom: .5rem;
+}
