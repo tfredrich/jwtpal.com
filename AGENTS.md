@@ -2,6 +2,7 @@
 
 ## Project Structure & Module Organization
 - `index.html` contains the single-page UI plus CDN script/style references; update text, layout, or sample markup here.
+- `faq.html` hosts the FAQ page content and layout; keep answers concise and aligned with the decoder behavior in `index.html`.
 - `lib/token.js` hosts all decoding logic, DOM wiring, and helper routines such as `decodeBase64Url` and `requiredClaims`.
 - `lib/style.css` defines theming and layout; keep shared variables and breakpoint rules near the top for quick tuning.
 - `img/` holds logos and icons referenced by `index.html`; favicon variations live at the repo root for host compatibility.
