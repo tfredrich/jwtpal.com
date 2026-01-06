@@ -62,26 +62,30 @@
               <pre id="header-div" class="decode-section header"><code id="header" class="language-json"></code></pre>
             </div>
             <div id="decodedJwtPayload" class="form-group">
-              <div class="d-flex justify-content-between align-items-center mb-2">
+              <div class="d-flex justify-content-between align-items-center mb-0">
                 <label for="payload" class="mb-0">Payload (Token Claims)</label>
-                <div id="payloadTabs" class="nav nav-tabs" role="tablist">
+                <div id="payloadTabs" class="nav nav-tabs border-bottom-0" role="tablist">
                   <button id="payload-tab-jwt" class="nav-link active" type="button" role="tab" aria-selected="true">JWT</button>
                   <button id="payload-tab-sdjwt" class="nav-link" type="button" role="tab" aria-selected="false">SD-JWT</button>
                 </div>
               </div>
-              <pre id="payload-div" class="decode-section payload"><code id="payload" class="language-json"></code></pre>
-            </div>
-            <div id="sdjwtSection" style="display: none">
-              <div id="sdjwtErrors" class="alert alert-warning" role="alert" style="display: none"></div>
-              <div class="form-group" id="sdjwtReconstructed">
-                <label for="disclosures">Disclosures</label>
-                <pre id="disclosures-div" class="decode-section payload compact"><code id="disclosures" class="language-json"></code></pre>
-              </div>
-              <div class="form-group" id="sdjwtKeyBinding" style="display: none">
-                <label for="kbheader">Key Binding JWT Header</label>
-                <pre id="kbheader-div" class="decode-section"><code id="kbheader" class="language-json"></code></pre>
-                <label for="kbpayload">Key Binding JWT Payload</label>
-                <pre id="kbpayload-div" class="decode-section"><code id="kbpayload" class="language-json"></code></pre>
+              <div class="tab-content border p-3 mt-n1">
+                <div id="payloadPaneJwt" class="tab-pane fade show active" role="tabpanel">
+                  <pre id="payload-div" class="decode-section payload border-0"><code id="payload" class="language-json"></code></pre>
+                </div>
+                <div id="sdjwtSection" class="tab-pane fade" role="tabpanel">
+                  <div id="sdjwtErrors" class="alert alert-warning" role="alert" style="display: none"></div>
+                  <div class="form-group" id="sdjwtReconstructed">
+                    <label for="disclosures">Disclosures</label>
+                    <pre id="disclosures-div" class="decode-section payload compact"><code id="disclosures" class="language-json"></code></pre>
+                  </div>
+                  <div class="form-group" id="sdjwtKeyBinding" style="display: none">
+                    <label for="kbheader">Key Binding JWT Header</label>
+                    <pre id="kbheader-div" class="decode-section"><code id="kbheader" class="language-json"></code></pre>
+                    <label for="kbpayload">Key Binding JWT Payload</label>
+                    <pre id="kbpayload-div" class="decode-section"><code id="kbpayload" class="language-json"></code></pre>
+                  </div>
+                </div>
               </div>
             </div>
             <div id="payloadSummary" class="form-group">
