@@ -64,7 +64,7 @@
             <div id="decodedJwtPayload" class="form-group">
               <div class="d-flex justify-content-between align-items-center mb-0">
                 <label for="payload" class="mb-0">Payload (Token Claims)</label>
-                <ul id="payloadTablist" class="nav nav-tabs" role="tablist">
+                <ul id="payloadTablist" class="nav nav-tabs border-bottom-0" role="tablist">
                   <li class="nav-item" role="presentation">
                     <button id="payload-tab-jwt" class="nav-link active" type="button" role="tab" data-toggle="tab" data-target="#payloadPaneJwt" aria-controls="payloadPaneJwt" aria-selected="true">JWT</button>
                   </li>
@@ -73,7 +73,7 @@
                   </li>
                 </ul>
               </div>
-              <div id="payloadTabContent" class="tab-content border border-top-0 p-3">
+              <div id="payloadTabContent" class="tab-content border p-3">
                 <div id="payloadPaneJwt" class="tab-pane fade show active" role="tabpanel" aria-labelledby="payload-tab-jwt" tabindex="0">
                   <pre id="payload-div" class="decode-section payload"><code id="payload" class="language-json"></code></pre>
                 </div>
