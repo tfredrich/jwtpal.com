@@ -56,7 +56,17 @@
             </div>
           </div>
           <div>
-            <h2>Decoded <small class="text-muted">(Viewable Token Details)</small></h2>
+            <div class="d-flex justify-content-between align-items-center mb-2">
+              <h2 class="mb-0">Decoded <small class="text-muted">(Viewable Token Details)</small></h2>
+              <div id="payloadToggle" class="btn-group btn-group-toggle btn-group-sm" data-toggle="buttons">
+                <label id="toggle-jwt-label" class="btn btn-outline-secondary active">
+                  <input type="radio" name="payloadMode" id="toggle-jwt" autocomplete="off" checked> JWT
+                </label>
+                <label id="toggle-sdjwt-label" class="btn btn-outline-secondary">
+                  <input type="radio" name="payloadMode" id="toggle-sdjwt" autocomplete="off"> SD-JWT
+                </label>
+              </div>
+            </div>
             <div class="form-group" id="decodedJwtHeader">
               <label for="header">Header (Algorithm &amp; Key ID)</label>
               <pre id="header-div" class="decode-section header"><code id="header" class="language-json"></code></pre>
@@ -64,14 +74,6 @@
             <div id="decodedJwtPayload" class="form-group">
               <div class="d-flex justify-content-between align-items-center mb-2">
                 <label for="payload" class="mb-0">Payload (Token Claims)</label>
-                <div id="payloadToggle" class="btn-group btn-group-toggle btn-group-sm" data-toggle="buttons" style="display: none">
-                  <label id="toggle-jwt-label" class="btn btn-outline-secondary active">
-                    <input type="radio" name="payloadMode" id="toggle-jwt" autocomplete="off" checked> JWT
-                  </label>
-                  <label id="toggle-sdjwt-label" class="btn btn-outline-secondary">
-                    <input type="radio" name="payloadMode" id="toggle-sdjwt" autocomplete="off"> SD-JWT
-                  </label>
-                </div>
               </div>
               <pre id="payload-div" class="decode-section payload"><code id="payload" class="language-json"></code></pre>
             </div>
