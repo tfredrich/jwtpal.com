@@ -11,6 +11,15 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.22.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.22.0/plugins/autolinker/prism-autolinker.min.css" integrity="sha512-4ZmAB2UXPu3Rgy5ZClpqnJ/zXXZBdulFXY1eWMLgIjp2HWgkHGIpr1b7kmCK+rdD5NYfivTp47UR+bQ4oTBllQ==" crossorigin="anonymous" />
     <link rel="stylesheet" href="./lib/style.css" />
+    <script>
+      // Initialize theme immediately to prevent flash of wrong theme
+      (function() {
+        var savedTheme = localStorage.getItem("jwtpal-theme");
+        var prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+        var theme = savedTheme || (prefersDark ? "dark" : "light");
+        document.documentElement.setAttribute("data-theme", theme);
+      })();
+    </script>
     <link rel="apple-touch-icon" sizes="180x180" href="./img/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="./img/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="./img/favicon-16x16.png">
@@ -25,7 +34,18 @@
           </a>
           <h1>JWT &amp; SD-JWT Decoder</h1>
         </div>
-        <div class="header-nav">
+        <div class="header-controls">
+          <div class="history-dropdown dropdown">
+            <button id="historyBtn" class="btn btn-outline-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Token History">
+              History
+            </button>
+            <div id="historyMenu" class="dropdown-menu dropdown-menu-right" aria-labelledby="historyBtn">
+              <span class="dropdown-item text-muted">No history yet</span>
+            </div>
+          </div>
+          <button id="themeToggle" class="theme-toggle" type="button" aria-label="Toggle dark mode" title="Toggle dark mode">
+            <span class="theme-icon">&#9790;</span>
+          </button>
           <a class="btn btn-outline-primary btn-sm" href="./faq.html">FAQ</a>
         </div>
       </div>
@@ -41,8 +61,11 @@
               <div id="link" class="col align-right"><a id="share" href="">Shareable Link</a></div>
             </div>
             <div class="row form-group">
-              <div class="col-12 col-md-10 encoded-col">
-                <textarea id="encodedJwt" class="form-control" rows="3" placeholder="Paste an encoded JWT here to decode it or click a sample button."></textarea>
+              <div class="col-12 col-md-10">
+                <div class="encoded-col">
+                  <textarea id="encodedJwt" class="form-control" rows="3" placeholder="Paste an encoded JWT here to decode it or click a sample button."></textarea>
+                </div>
+                <div id="tokenSize" class="token-size"></div>
               </div>
               <div class="col-12 col-md-2 mt-2 mt-md-0">
                 <fieldset class="sample-box mb-2">
@@ -61,7 +84,7 @@
             <h2>Decoded <small class="text-muted">(Viewable Token Details)</small></h2>
             <div class="form-group" id="decodedJwtHeader">
               <label for="header">Header (Algorithm &amp; Key ID)</label>
-              <pre id="header-div" class="decode-section header"><code id="header" class="language-json"></code></pre>
+              <pre id="header-div" class="decode-section header"><code id="header" class="language-json"></code><button class="copy-btn" data-target="header" type="button" title="Copy header">Copy</button></pre>
             </div>
             <div id="decodedJwtPayload" class="form-group">
               <div class="d-flex justify-content-between align-items-center mb-0">
@@ -77,13 +100,13 @@
               </div>
               <div id="payloadTabContent" class="tab-content border p-3">
                 <div id="payloadPaneJwt" class="tab-pane show active" role="tabpanel" aria-labelledby="payload-tab-jwt" tabindex="0">
-                  <pre id="payload-div" class="decode-section payload"><code id="payload" class="language-json"></code></pre>
+                  <pre id="payload-div" class="decode-section payload"><code id="payload" class="language-json"></code><button class="copy-btn" data-target="payload" type="button" title="Copy payload">Copy</button></pre>
                 </div>
                 <div id="sdjwtSection" class="tab-pane" role="tabpanel" aria-labelledby="payload-tab-sdjwt" tabindex="0">
                   <div id="sdjwtErrors" class="alert alert-warning" role="alert" style="display: none"></div>
                   <div class="form-group" id="sdjwtReconstructed">
                     <label for="disclosures">Disclosures</label>
-                    <pre id="disclosures-div" class="decode-section payload compact"><code id="disclosures" class="language-json"></code></pre>
+                    <pre id="disclosures-div" class="decode-section payload compact"><code id="disclosures" class="language-json"></code><button class="copy-btn" data-target="disclosures" type="button" title="Copy disclosures">Copy</button></pre>
                   </div>
                   <div class="form-group" id="sdjwtKeyBinding" style="display: none">
                     <label for="kbheader">Key Binding JWT Header</label>
@@ -96,17 +119,117 @@
             </div>
             <div id="payloadSummary" class="form-group">
               <label for="summary">Summary (Payload Analysis)</label>
-              <pre id="summary-div" class="decode-section summary"><code id="summary" class="language-json"></code></pre>
+              <pre id="summary-div" class="decode-section summary"><code id="summary" class="language-json"></code><button class="copy-btn" data-target="summary" type="button" title="Copy summary">Copy</button></pre>
             </div>
           </div>
         </form>
+
+        <!-- Signature Verification Section -->
+        <div id="verifySection" class="collapsible-section">
+          <div class="collapsible-header" role="button" aria-expanded="false" aria-controls="verifyBody" tabindex="0">
+            <h3>Signature Verification</h3>
+            <span class="collapse-icon">&#9660;</span>
+          </div>
+          <div id="verifyBody" class="collapsible-body verify-section">
+            <p class="text-muted small">Verify JWT signatures using a public key. Supports RS256, RS384, RS512, ES256, ES384, ES512, and EdDSA.</p>
+            <div class="form-group">
+              <label for="verifyKeyFormat">Key Format</label>
+              <select id="verifyKeyFormat" class="form-control form-control-sm">
+                <option value="pem">PEM (Public Key)</option>
+                <option value="jwk">JWK (JSON Web Key)</option>
+                <option value="jwks">JWKS URL</option>
+              </select>
+            </div>
+            <div class="form-group" id="verifyKeyInputGroup">
+              <label for="verifyKeyInput">Public Key</label>
+              <textarea id="verifyKeyInput" class="form-control" rows="5" placeholder="Paste your public key (PEM format) or JWK here..."></textarea>
+            </div>
+            <div class="form-group" id="verifyJwksGroup" style="display: none;">
+              <label for="verifyJwksUrl">JWKS URL</label>
+              <div class="input-group">
+                <input type="url" id="verifyJwksUrl" class="form-control form-control-sm" placeholder="https://example.com/.well-known/jwks.json">
+                <div class="input-group-append">
+                  <button id="fetchJwksBtn" class="btn btn-outline-secondary btn-sm" type="button">Fetch</button>
+                </div>
+              </div>
+            </div>
+            <button id="verifyBtn" class="btn btn-primary btn-sm" type="button">Verify Signature</button>
+            <div id="verifyResult" class="verify-result" style="display: none;"></div>
+          </div>
+        </div>
+
+        <!-- Token Builder Section -->
+        <div id="builderSection" class="collapsible-section">
+          <div class="collapsible-header" role="button" aria-expanded="false" aria-controls="builderBody" tabindex="0">
+            <h3>Token Builder</h3>
+            <span class="collapse-icon">&#9660;</span>
+          </div>
+          <div id="builderBody" class="collapsible-body builder-form">
+            <p class="text-muted small">Create unsigned JWTs (alg: "none") for testing and development purposes.</p>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="builderIss">iss (Issuer)</label>
+                  <input type="text" id="builderIss" class="form-control form-control-sm" placeholder="https://example.com">
+                </div>
+                <div class="form-group">
+                  <label for="builderSub">sub (Subject)</label>
+                  <input type="text" id="builderSub" class="form-control form-control-sm" placeholder="user@example.com">
+                </div>
+                <div class="form-group">
+                  <label for="builderAud">aud (Audience)</label>
+                  <input type="text" id="builderAud" class="form-control form-control-sm" placeholder="https://api.example.com">
+                </div>
+                <div class="form-group">
+                  <label for="builderJti">
+                    jti (JWT ID)
+                    <button type="button" class="btn btn-outline-secondary quick-btn" id="genJtiBtn" title="Generate UUID">Gen</button>
+                  </label>
+                  <input type="text" id="builderJti" class="form-control form-control-sm" placeholder="unique-token-id">
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="builderIat">
+                    iat (Issued At)
+                    <button type="button" class="btn btn-outline-secondary quick-btn" id="nowIatBtn" title="Set to now">Now</button>
+                  </label>
+                  <input type="number" id="builderIat" class="form-control form-control-sm" placeholder="Unix timestamp">
+                </div>
+                <div class="form-group">
+                  <label for="builderExp">
+                    exp (Expiration)
+                    <button type="button" class="btn btn-outline-secondary quick-btn" id="exp1hBtn" title="Set to iat + 1 hour">+1h</button>
+                    <button type="button" class="btn btn-outline-secondary quick-btn" id="exp24hBtn" title="Set to iat + 24 hours">+24h</button>
+                  </label>
+                  <input type="number" id="builderExp" class="form-control form-control-sm" placeholder="Unix timestamp">
+                </div>
+                <div class="form-group">
+                  <label for="builderNbf">
+                    nbf (Not Before)
+                    <button type="button" class="btn btn-outline-secondary quick-btn" id="nowNbfBtn" title="Set to now">Now</button>
+                  </label>
+                  <input type="number" id="builderNbf" class="form-control form-control-sm" placeholder="Unix timestamp (optional)">
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Custom Claims <button type="button" class="btn btn-outline-secondary quick-btn" id="addClaimBtn">+ Add</button></label>
+              <div id="customClaimsList" class="custom-claims-list"></div>
+            </div>
+            <div class="form-group">
+              <button id="buildTokenBtn" class="btn btn-primary btn-sm" type="button">Build Token</button>
+              <button id="clearBuilderBtn" class="btn btn-outline-secondary btn-sm" type="button">Clear</button>
+            </div>
+          </div>
+        </div>
       </div>
       <div id="version-footer" class="container text-right small text-muted mt-4">
         Version: <span id="version-stamp">--</span>
       </div>
     </main><!-- /.container -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous" async defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.22.0/prism.min.js" integrity="sha512-9+422Bs3A87UkWfp+qV80Nfv9arhbCXKY1rxrF2seorI36mIIstMiuBfyKLF1yH1nnzQkEWq2xrzT4XU3Z+vrA==" crossorigin="anonymous" data-manual></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.22.0/components/prism-json.min.js" integrity="sha512-IC7rV8RslChgByOdUFC6ePqOGn+OwJhnKC3S5AezM8DAiOdGhJMwgsIvBChsa2yuxxoPbH2+W/kjNUM1cc+jUQ==" crossorigin="anonymous"></script>

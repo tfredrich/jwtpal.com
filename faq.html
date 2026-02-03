@@ -9,6 +9,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <link rel="stylesheet" href="./lib/style.css" />
+    <script>
+      // Initialize theme immediately to prevent flash of wrong theme
+      (function() {
+        var savedTheme = localStorage.getItem("jwtpal-theme");
+        var prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+        var theme = savedTheme || (prefersDark ? "dark" : "light");
+        document.documentElement.setAttribute("data-theme", theme);
+      })();
+    </script>
     <link rel="apple-touch-icon" sizes="180x180" href="./img/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="./img/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="./img/favicon-16x16.png">
@@ -21,7 +30,10 @@
           <img src="./img/jwtpal-logo-sm.png" alt="Logo" class="logo">
           <h1>JWT &amp; SD-JWT Decoder FAQ</h1>
         </div>
-        <div class="header-nav">
+        <div class="header-controls">
+          <button id="themeToggle" class="theme-toggle" type="button" aria-label="Toggle dark mode" title="Toggle dark mode">
+            <span class="theme-icon">&#9790;</span>
+          </button>
           <a class="btn btn-outline-primary btn-sm" href="./index.html">Home</a>
         </div>
       </div>
@@ -70,5 +82,39 @@
         <a href="#top">Top</a>
       </div>
     </main><!-- /.container -->
+    <script>
+      // Theme management for FAQ page
+      (function() {
+        function initTheme() {
+          var savedTheme = localStorage.getItem("jwtpal-theme");
+          var prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+          var theme = savedTheme || (prefersDark ? "dark" : "light");
+          setTheme(theme);
+        }
+
+        function setTheme(theme) {
+          document.documentElement.setAttribute("data-theme", theme);
+          localStorage.setItem("jwtpal-theme", theme);
+          updateThemeIcon(theme);
+        }
+
+        function updateThemeIcon(theme) {
+          var iconEl = document.querySelector(".theme-icon");
+          if (iconEl) {
+            iconEl.innerHTML = theme === "dark" ? "&#9788;" : "&#9790;";
+          }
+        }
+
+        function toggleTheme() {
+          var currentTheme = document.documentElement.getAttribute("data-theme") || "light";
+          var newTheme = currentTheme === "dark" ? "light" : "dark";
+          setTheme(newTheme);
+        }
+
+        initTheme();
+
+        document.getElementById("themeToggle").addEventListener("click", toggleTheme);
+      })();
+    </script>
   </body>
 </html>
