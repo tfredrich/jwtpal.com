@@ -41,7 +41,7 @@
   --text-primary: #e4e4e4;
   --text-secondary: #a0a0a0;
   --text-muted: #888888;
-  --border-color: #3a3a5c;
+  --border-color: #ced4da;
   --border-color-light: #2a2a4c;
   --header-color: #ff6b9d;
   --payload-color: #e879f9;
@@ -296,7 +296,6 @@ a:hover {
 .nav-tabs .nav-link.disabled {
   color: var(--text-muted);
 }
-
 .tab-content {
   background-color: var(--bg-primary);
   border-color: var(--border-color);
