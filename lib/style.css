@@ -189,6 +189,11 @@ h1, h2, h3, h4, h5, h6 {
   flex: 1 1 auto;
   width: 100%;
 }
+@media (min-width: 768px) {
+  .encoded-col #encodedJwt {
+    min-height: 8.25rem;
+  }
+}
 #link {
   display: none;
 }
@@ -363,6 +368,8 @@ a:hover {
 /* Token size display */
 .token-size {
   font-size: .75rem;
+  line-height: 1.2;
+  min-height: 1.2em;
   color: var(--text-muted);
   margin-top: .25rem;
 }
