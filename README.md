@@ -26,6 +26,7 @@
 ```bash
 python3 -m http.server 8080
 open http://localhost:8080/index.html   # macOS; use xdg-open on Linux
+node tests/regression-oauth-authz-req.js
 ```
 The site is pure HTML/CSS/JS located under `index.html` and `lib/`. Update `lib/token.js` for decoder logic and `lib/style.css` for layout adjustments. Pull requests should describe manual test steps (valid token, malformed token, query-string load) and link any relevant OAuth2/OIDC specs influencing the change.
 
