@@ -2,9 +2,16 @@
 <!doctype html>
 <html lang="en">
 <head>
+<meta name="google-adsense-account" content="ca-pub-2093481943685202">
+<meta name="description" content="Decode and debug JWT and SD-JWT tokens in your browser. Inspect claims, headers, expiration, and disclosures for OAuth2 and OIDC.">
+<meta name="keywords" content="jwt decoder, jwt debug, decode jwt, jwt parser, json web token decoder, sd-jwt decoder, sd-jwt debug, selective disclosure jwt, jwt claims viewer, oauth2 token decoder, oidc token decoder, access token decoder, id token decoder">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>OAuth2 Playground</title>
+<link rel="apple-touch-icon" sizes="180x180" href="./img/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="./img/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="./img/favicon-16x16.png">
+<link rel="manifest" href="./site.webmanifest">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-fork-ribbon-css/0.2.3/gh-fork-ribbon.min.css">
 <script>
 (() => {
@@ -351,6 +358,19 @@ label { display: block; font-size: 12px; font-weight: 500; color: var(--muted); 
 html[data-theme="dark"] .theme-icon-sun { display: block; }
 html:not([data-theme="dark"]) .theme-icon-moon { display: block; }
 
+/* ── VERSION ── */
+.version-footer {
+  position: fixed;
+  right: 14px;
+  bottom: 10px;
+  z-index: 90;
+  color: var(--muted);
+  font-size: 11px;
+  font-family: var(--font-ui);
+  line-height: 1.4;
+  opacity: .78;
+}
+
 /* ── SEGMENTED CONTROL ── */
 .seg-ctrl { display: inline-flex; border: 1px solid var(--border); border-radius: var(--r); overflow: hidden; background: var(--surface2); }
 .seg-btn { padding: 3px 9px; font-size: 11px; font-weight: 500; color: var(--muted); background: none; border: none; cursor: pointer; transition: all .15s; font-family: var(--font-ui); white-space: nowrap; }
@@ -384,7 +404,7 @@ html:not([data-theme="dark"]) .theme-icon-moon { display: block; }
 
 <nav class="nav">
   <a class="logo" href="#" onclick="return false;">
-    <img class="logo-mark" src="mp5uha16-jwtpal-logo-sm.png" alt="" width="24" height="24">
+    <img class="logo-mark" src="./img/jwtpal-logo-sm.png" alt="" width="24" height="24">
     <span>OAuth2 Playground</span>
   </a>
   <div class="nav-tabs">
@@ -839,6 +859,11 @@ html:not([data-theme="dark"]) .theme-icon-moon { display: block; }
 
 </main>
 
+<div id="version-footer" class="version-footer">
+  Version: <span id="version-stamp">--</span>
+</div>
+
+<script src="./version.js"></script>
 <script>
 'use strict';
 
@@ -1538,6 +1563,11 @@ function buildTokenReq() {
 
 // ── Init ──────────────────────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', async () => {
+  const stampEl = document.getElementById('version-stamp');
+  if (stampEl && window.JWT_PAL_VERSION) {
+    stampEl.textContent = window.JWT_PAL_VERSION;
+  }
+
   // Theme
   setTheme(systemTheme());
   document.getElementById('theme-toggle')?.addEventListener('click', () => {
