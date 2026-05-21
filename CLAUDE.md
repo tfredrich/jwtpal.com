@@ -10,7 +10,7 @@ JwtPal.com is a client-side JWT and SD-JWT decoder/debugger for OAuth2 and OpenI
 
 - Vanilla HTML/CSS/JavaScript (ES5+)
 - No build tools or bundlers required
-- External libraries via CDN with SRI integrity: Bootstrap 4.5.2, jQuery 3.5.1 slim, Popper.js, Prism.js
+- External CSS for the GitHub fork ribbon; application behavior is implemented with local browser scripts.
 
 ## Development Commands
 
@@ -27,22 +27,25 @@ prettier --write lib/*.js lib/*.css
 
 ## Architecture
 
-**Token Processing Flow:**
+**Page Flow:**
 ```
-User Input → process() → splitSdJwt() → decode() → summarize() → updateDecoded() → Prism.highlightAll()
+User Input → feature script decode/build helper → shared rendering/copy helpers → DOM update
 ```
 
 **Key Files:**
-- `lib/token.js` - All JWT/SD-JWT decoding, validation, and UI logic (581 lines)
-- `index.html` - Single-page application with tabbed UI for JWT vs SD-JWT views
-- `lib/style.css` - Styling with color-coded sections (header=pink #fb015b, payload=purple #d63aff, summary=black)
+- `index.html` - Single-page JWT, SD-JWT, and OAuth2 PKCE playground markup.
+- `lib/playground.js` - Shared UI wiring, theme handling, copy helpers, URL preload logic, and version display.
+- `lib/playground-jwt.js` - JWT decoding, encoding, signature verification, and claim compliance behavior.
+- `lib/playground-sdjwt.js` - SD-JWT decoding, disclosure display, and SD-JWT example building.
+- `lib/playground-oauth.js` - OAuth2 PKCE parameter generation and authorization/token request helpers.
+- `lib/playground-style.css` - Styling, theme variables, layout, and responsive rules.
 
-**Main Functions in token.js:**
-- `decode(jwt)` - Parse JWT into header/payload/signature
-- `process(jwt)` - Main orchestrator handling SD-JWT detection and routing
-- `summarize(decoded, encoded)` - Generate claim analysis with RFC compliance checks
-- `splitSdJwt(rawJwt)` - Split SD-JWT using `~` delimiters
-- `buildSdJwtState(payload, parsed)` - Construct disclosure validation state
+**Main Functions:**
+- `decodeJWT(raw)` - Parse JWT header/payload/signature and render decode panels.
+- `runEncode()` - Build and optionally sign a JWT from editable JSON inputs.
+- `decodeSD(raw)` - Split and render SD-JWT issuer JWT, disclosures, and holder-binding JWT.
+- `buildSD()` - Build a local SD-JWT example from editable claims.
+- `genPKCE()` - Generate OAuth2 PKCE verifier/challenge/state/nonce values.
 
 ## Testing
 
@@ -52,7 +55,7 @@ Manual testing only. Key scenarios:
 - Malformed tokens (invalid Base64, missing segments)
 - SD-JWT with multiple disclosures
 - Query-string loading (`?jwt=` or `?token=` parameters)
-- Tab switching between JWT/SD-JWT views
+- Tab switching between JWT, SD-JWT, and OAuth2 PKCE views
 
 Use `blob.jwt` for large token regression testing.
 
@@ -61,8 +64,8 @@ Use `blob.jwt` for large token regression testing.
 - ES5+ JavaScript, no transpilation
 - camelCase for variables/functions
 - 2-space indentation
-- Always call `Prism.highlightAll()` after DOM updates
-- Maintain Bootstrap tab functionality with jQuery dependency
+- Keep feature-specific behavior in the matching `lib/playground-*.js` file.
+- Export functions used by inline HTML handlers through `window`.
 - Base64URL decoding must normalize padding for cross-browser support
 
 ## Commit Style
